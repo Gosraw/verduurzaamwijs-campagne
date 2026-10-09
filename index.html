@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Campagnevideo's Verduurzaamwijs</title>
+<link rel="icon" href="merk/beeldmerk.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SUSE:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap">
+<style>
+/* Beoordelingsblad: kop met uitleg en stand, daaronder een raster van videokaarten met sterren en opmerkingen */
+:root {
+  --bg: #FBF7FC; --vlak: #FFFFFF; --lavendel: #F3EAF7; --rand: #E6DFE9;
+  --tekst: #17092A; --zacht: #554C60; --stil: #6B6377;
+  --paars: #6A248C; --oranje: #FF7F0D; --oranje-tekst: #1B0C05; --ster-leeg: #D9CFE0; --groen: #1F7A5A;
+  --kop: "SUSE", "DM Sans", system-ui, sans-serif; --romp: "DM Sans", system-ui, -apple-system, sans-serif;
+  --r-kaart: 22px; --r-pil: 999px; --schaduw: 0 1px 2px rgba(23, 9, 42, .06), 0 8px 24px rgba(23, 9, 42, .07);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #120720; --vlak: #1E1030; --lavendel: #2A1840; --rand: #3A2752;
+  --tekst: #F6EFFA; --zacht: #CDBFDA; --stil: #A99BB8;
+  --paars: #C9A6DD; --ster-leeg: #4A3763; --groen: #5FC79C; --schaduw: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #120720; --vlak: #1E1030; --lavendel: #2A1840; --rand: #3A2752;
+  --tekst: #F6EFFA; --zacht: #CDBFDA; --stil: #A99BB8;
+  --paars: #C9A6DD; --ster-leeg: #4A3763; --groen: #5FC79C; --schaduw: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); color-scheme: dark; }
+body { margin: 0; background: var(--bg); color: var(--tekst); font: 16px/1.5 var(--romp); }
+[hidden] { display: none !important; }
+img { max-width: 100%; }
+.pagina { max-width: 1320px; margin: 0 auto; padding: 32px clamp(16px, 4vw, 40px) 64px; display: grid; gap: 28px; }
+h1, h2, h3 { font-family: var(--kop); letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(30px, 4.4vw, 48px); line-height: 1.05; font-weight: 700; }
+h2 { font-size: 22px; font-weight: 700; }
+p { margin: 0; }
+.logo { height: 30px; width: auto; display: block; }
+.logo.wit { display: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .logo.wit { display: block; } :root:not([data-theme="light"]) .logo.kleur { display: none; } }
+:root[data-theme="dark"] .logo.wit { display: block; } :root[data-theme="dark"] .logo.kleur { display: none; }
+.kop { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 32px; align-items: start; }
+.intro { display: grid; gap: 16px; }
+.intro p { color: var(--zacht); max-width: 62ch; }
+.stappen { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
+.stappen li { background: var(--lavendel); border-radius: var(--r-pil); padding: 6px 14px; font-size: 14px; font-weight: 600; }
+.stand { background: var(--vlak); border-radius: var(--r-kaart); box-shadow: var(--schaduw); padding: 20px 22px; display: grid; gap: 12px; min-width: 0; }
+.stand ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.stand li { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 14px; }
+.stand li a { color: inherit; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.stand li a:hover { text-decoration: underline; }
+.stand .leeg { color: var(--stil); font-size: 14px; }
+.code { font-family: var(--kop); font-weight: 700; font-size: 13px; background: var(--lavendel); color: var(--paars); border-radius: 8px; padding: 2px 7px; text-align: center; font-variant-numeric: tabular-nums; }
+.gem { font-variant-numeric: tabular-nums; font-weight: 700; white-space: nowrap; }
+.gem small { color: var(--stil); font-weight: 500; }
+.ik { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; background: var(--lavendel); border-radius: var(--r-kaart); padding: 14px 18px; }
+.ik label { font-weight: 600; font-size: 14px; }
+.ik input { font: inherit; border: 1px solid var(--rand); background: var(--vlak); color: var(--tekst); border-radius: 12px; padding: 8px 12px; min-height: 44px; width: min(260px, 100%); }
+.voortgang { margin-left: auto; font-size: 14px; color: var(--zacht); font-variant-numeric: tabular-nums; }
+.melding { border-radius: 14px; padding: 12px 16px; background: var(--vlak); border: 1px solid var(--rand); color: var(--zacht); font-size: 14px; }
+.filters { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; }
+.groep { display: inline-flex; background: var(--lavendel); border-radius: var(--r-pil); padding: 4px; gap: 2px; }
+.groep button { font: 600 14px var(--romp); border: 0; background: transparent; color: var(--zacht); border-radius: var(--r-pil); padding: 8px 14px; min-height: 40px; cursor: pointer; }
+.groep button[aria-pressed="true"] { background: var(--vlak); color: var(--tekst); box-shadow: 0 1px 3px rgba(23, 9, 42, .12); }
+.filters .label { font-size: 13px; color: var(--stil); font-weight: 600; margin-right: 6px; }
+.raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 24px; align-items: start; }
+.kaart { background: var(--vlak); border-radius: var(--r-kaart); box-shadow: var(--schaduw); overflow: hidden; display: grid; min-width: 0; scroll-margin-top: 16px; }
+.kaart video { width: 100%; display: block; background: #17092A; aspect-ratio: 9 / 16; object-fit: contain; }
+.vierkant .kaart video { aspect-ratio: 1 / 1; }
+.inhoud { padding: 16px 18px 18px; display: grid; gap: 12px; }
+.titel { display: flex; gap: 10px; align-items: baseline; justify-content: space-between; }
+.titel h3 { font-size: 19px; line-height: 1.2; }
+.hook { font-size: 15px; color: var(--zacht); }
+.hook::before { content: "Hook: "; font-weight: 700; color: var(--tekst); }
+details { font-size: 14px; color: var(--zacht); }
+details summary { cursor: pointer; font-weight: 600; color: var(--paars); min-height: 32px; display: flex; align-items: center; }
+details p + p { margin-top: 4px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px; color: var(--stil); }
+.meta span { background: var(--lavendel); border-radius: var(--r-pil); padding: 2px 10px; }
+.oordeel { border-top: 1px solid var(--rand); padding-top: 12px; display: grid; gap: 10px; }
+.rij { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.sterren { display: inline-flex; gap: 2px; }
+.sterren button { border: 0; background: transparent; padding: 4px; width: 40px; height: 40px; cursor: pointer; border-radius: 10px; display: grid; place-items: center; }
+.sterren button svg { width: 28px; height: 28px; fill: var(--ster-leeg); transition: transform .12s, fill .12s; }
+.sterren button.aan svg { fill: var(--oranje); }
+.sterren button:hover svg { transform: scale(1.12); }
+.sterren button:disabled { cursor: default; }
+.sterren button:disabled:hover svg { transform: none; }
+.mini { display: inline-flex; gap: 1px; vertical-align: -2px; }
+.mini svg { width: 14px; height: 14px; fill: var(--ster-leeg); }
+.mini svg.aan { fill: var(--oranje); }
+textarea { font: inherit; font-size: 15px; width: 100%; box-sizing: border-box; min-height: 76px; resize: vertical; border: 1px solid var(--rand); border-radius: 14px; padding: 10px 12px; background: var(--bg); color: var(--tekst); }
+.opslaan { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.knop { font: 700 14px var(--romp); border: 0; border-radius: var(--r-pil); background: var(--oranje); color: var(--oranje-tekst); padding: 10px 18px; min-height: 44px; cursor: pointer; }
+.knop:disabled { opacity: .45; cursor: default; }
+.status { font-size: 13px; color: var(--stil); }
+.status.ok { color: var(--groen); }
+.anderen { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.anderen li { background: var(--lavendel); border-radius: 14px; padding: 10px 12px; font-size: 14px; display: grid; gap: 2px; }
+.anderen .wie { font-weight: 700; display: flex; gap: 8px; align-items: center; justify-content: space-between; }
+.anderen .wat { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--zacht); }
+:focus-visible { outline: 3px solid var(--oranje); outline-offset: 2px; }
+.verborgen { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 860px) { .kop { grid-template-columns: minmax(0, 1fr); } .voortgang { margin-left: 0; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main class="pagina">
+  <header class="kop">
+    <div class="intro">
+      <img class="logo kleur" src="merk/logo.svg" alt="Verduurzaamwijs" width="193" height="30">
+      <img class="logo wit" src="merk/logo-wit.svg" alt="Verduurzaamwijs" width="193" height="30">
+      <h1>Campagnevideo's: welke werken het best?</h1>
+      <p>Twintig korte video's voor social media, elk met een eigen opening (de hook) en een eigen invalshoek. Vijftien zijn voor huiseigenaren, vijf voor installateurs. Bekijk ze, geef sterren en schrijf erbij wat je opvalt. Met jullie oordeel kiezen we welke video's de campagne in gaan.</p>
+      <ul class="stappen" aria-label="Zo werkt het">
+        <li>1. Speel een video af</li><li>2. Geef 1 tot 5 sterren</li><li>3. Schrijf een opmerking</li>
+      </ul>
+    </div>
+    <section class="stand" aria-labelledby="stand-titel">
+      <h2 id="stand-titel">Stand</h2>
+      <ol id="stand"></ol>
+      <p class="leeg" id="stand-leeg">Nog geen beoordelingen. Zodra iemand sterren geeft, verschijnt hier de volgorde van hoog naar laag.</p>
+    </section>
+  </header>
+
+  <section class="ik" aria-label="Jouw gegevens">
+    <label for="naam">Je beoordeelt als</label>
+    <input id="naam" type="text" autocomplete="name" placeholder="Je naam" maxlength="60">
+    <span class="voortgang" id="voortgang">Je hebt 0 van 20 video's beoordeeld</span>
+  </section>
+  <p class="melding" id="melding" hidden></p>
+
+  <div class="filters">
+    <div><span class="label" id="l-doelgroep">Doelgroep</span><span class="groep" role="group" aria-labelledby="l-doelgroep" id="f-doelgroep">
+      <button type="button" data-w="alle" aria-pressed="true">Alle 20</button><button type="button" data-w="klant" aria-pressed="false">Huiseigenaren</button><button type="button" data-w="installateur" aria-pressed="false">Installateurs</button></span></div>
+    <div><span class="label" id="l-formaat">Formaat</span><span class="groep" role="group" aria-labelledby="l-formaat" id="f-formaat">
+      <button type="button" data-w="staand" aria-pressed="true">Staand 9:16</button><button type="button" data-w="vierkant" aria-pressed="false">Vierkant 1:1</button></span></div>
+    <div><span class="label" id="l-volgorde">Volgorde</span><span class="groep" role="group" aria-labelledby="l-volgorde" id="f-volgorde">
+      <button type="button" data-w="nummer" aria-pressed="true">Op nummer</button><button type="button" data-w="score" aria-pressed="false">Hoogste score</button></span></div>
+  </div>
+
+  <section class="raster" id="raster" aria-label="Video's"></section>
+</main>
+
+<script>
+const VIDEOS = [{"id":"K01","doelgroep":"klant","invalshoek":"Zonder gedoe","hook":"Verduurzamen klinkt als gedoe?","zinnen":["Wij regelen het hele traject, van advies tot uitvoering.","En jij volgt alles gewoon online."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":13.8,"staand":"K01-zonder-gedoe-9x16.mp4","vierkant":"K01-zonder-gedoe-1x1.mp4"},{"id":"K02","doelgroep":"klant","invalshoek":"Eerlijk vergelijken","hook":"Vijf offertes, en allemaal appels met peren?","zinnen":["Bij ons maken erkende installateurs een offerte op precies dezelfde scope.","Zo vergelijk je eerlijk."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":15.5,"staand":"K02-eerlijk-vergelijken-9x16.mp4","vierkant":"K02-eerlijk-vergelijken-1x1.mp4"},{"id":"K03","doelgroep":"klant","invalshoek":"Subsidie","hook":"Gemiddeld € 4.500 subsidie. Laat jij dat liggen?","zinnen":["Wij checken welke subsidies je kunt stapelen.","En we helpen je met de aanvraag."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":14,"staand":"K03-subsidie-9x16.mp4","vierkant":"K03-subsidie-1x1.mp4"},{"id":"K04","doelgroep":"klant","invalshoek":"Besparing","hook":"Wat levert verduurzamen jou eigenlijk op?","zinnen":["Onze adviseur rekent uit wat écht rendeert voor jouw woning.","Gemiddeld scheelt dat zo'n vijftienhonderd euro per jaar."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":14.7,"staand":"K04-besparing-9x16.mp4","vierkant":"K04-besparing-1x1.mp4"},{"id":"K05","doelgroep":"klant","invalshoek":"Onafhankelijk advies","hook":"Advies van iemand die je ook iets wil verkopen?","zinnen":["Ons advies is onafhankelijk.","Eerst bepalen we wat jouw woning nodig heeft. Pas daarna komen de offertes."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":14.3,"staand":"K05-onafhankelijk-advies-9x16.mp4","vierkant":"K05-onafhankelijk-advies-1x1.mp4"},{"id":"K06","doelgroep":"klant","invalshoek":"Warmtepomp","hook":"Twijfel je over een warmtepomp?","zinnen":["Hybride of volledig elektrisch?","Onze adviseur kijkt wat bij jouw woning past, en wat het oplevert."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":13.5,"staand":"K06-warmtepomp-9x16.mp4","vierkant":"K06-warmtepomp-1x1.mp4"},{"id":"K07","doelgroep":"klant","invalshoek":"Energielabel","hook":"Van energielabel E naar B?","zinnen":["Na de verbouwing registreert je adviseur je nieuwe energielabel.","Officieel vastgelegd, en tien jaar geldig."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":14.3,"staand":"K07-energielabel-9x16.mp4","vierkant":"K07-energielabel-1x1.mp4"},{"id":"K08","doelgroep":"klant","invalshoek":"Zelf kiezen","hook":"Jij kiest. Niet de verkoper.","zinnen":["Je ziet maximaal vijf offertes naast elkaar.","Prijs, garantie en reviews. De keuze is aan jou."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":14.4,"staand":"K08-zelf-kiezen-9x16.mp4","vierkant":"K08-zelf-kiezen-1x1.mp4"},{"id":"K09","doelgroep":"klant","invalshoek":"Waar begin je?","hook":"Je wilt verduurzamen. Maar waar begin je?","zinnen":["Bij een adviseur die je woning opneemt.","Daarna weet je precies welke stappen zinvol zijn."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":13.4,"staand":"K09-waar-begin-je-9x16.mp4","vierkant":"K09-waar-begin-je-1x1.mp4"},{"id":"K10","doelgroep":"klant","invalshoek":"Energierekening","hook":"Schrik jij ook van je energierekening?","zinnen":["Isoleren, beter glas of een warmtepomp?","Wij rekenen uit welke maatregelen voor jouw woning lonen."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":14.3,"staand":"K10-energierekening-9x16.mp4","vierkant":"K10-energierekening-1x1.mp4"},{"id":"K11","doelgroep":"klant","invalshoek":"Ervaring (4.000+ woningen)","hook":"Ruim 4.000 woningen gingen je voor.","zinnen":["Wij begeleiden je van opname tot nieuw energielabel.","Alles op één plek."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":13.5,"staand":"K11-ervaring-4-000-woningen-9x16.mp4","vierkant":"K11-ervaring-4-000-woningen-1x1.mp4"},{"id":"K12","doelgroep":"klant","invalshoek":"Overzicht","hook":"Nooit meer zoeken naar die ene offerte in je mail.","zinnen":["In Mijn Verduurzaamwijs staat alles op één plek.","Je advies, je offertes en de planning."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":14.5,"staand":"K12-overzicht-9x16.mp4","vierkant":"K12-overzicht-1x1.mp4"},{"id":"K13","doelgroep":"klant","invalshoek":"Betrouwbare installateur","hook":"Hoe vind je een installateur die je kunt vertrouwen?","zinnen":["Wij werken met installateurs die door ons zijn erkend.","Met reviews van andere klanten erbij."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":13.3,"staand":"K13-betrouwbare-installateur-9x16.mp4","vierkant":"K13-betrouwbare-installateur-1x1.mp4"},{"id":"K14","doelgroep":"klant","invalshoek":"Niet zelf rondbellen","hook":"Geen vijf bedrijven bellen. Geen eindeloze afspraken.","zinnen":["Eén opname door je adviseur.","En de offertes komen naar jou toe."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":12.9,"staand":"K14-niet-zelf-rondbellen-9x16.mp4","vierkant":"K14-niet-zelf-rondbellen-1x1.mp4"},{"id":"K15","doelgroep":"klant","invalshoek":"In vier stappen","hook":"Verduurzamen in vier stappen.","zinnen":["Advies, offertes vergelijken, de uitvoering en je nieuwe energielabel.","Wij begeleiden je bij elke stap."],"afsluiter":"Start de gratis check op de website van Verduurzaamwijs.","duur":14.7,"staand":"K15-in-vier-stappen-9x16.mp4","vierkant":"K15-in-vier-stappen-1x1.mp4"},{"id":"I01","doelgroep":"installateur","invalshoek":"Voorbereide klussen","hook":"Installateur? Klussen die al helemaal zijn voorbereid.","zinnen":["De adviseur heeft de woning al opgenomen.","Maatregelen, product en details staan in het dossier."],"afsluiter":"Word installatiepartner van Verduurzaamwijs.","duur":13.5,"staand":"I01-voorbereide-klussen-9x16.mp4","vierkant":"I01-voorbereide-klussen-1x1.mp4"},{"id":"I02","doelgroep":"installateur","invalshoek":"Minder acquisitie","hook":"Minder tijd kwijt aan acquisitie?","zinnen":["Je ziet open aanvragen in jouw werkgebied.","Voor de maatregelen die jij uitvoert."],"afsluiter":"Word installatiepartner van Verduurzaamwijs.","duur":11.5,"staand":"I02-minder-acquisitie-9x16.mp4","vierkant":"I02-minder-acquisitie-1x1.mp4"},{"id":"I03","doelgroep":"installateur","invalshoek":"Eerlijk gegund","hook":"Eerlijk concurreren, op precies dezelfde scope.","zinnen":["Iedereen maakt een offerte op hetzelfde dossier.","De klant kiest op prijs, garantie en reviews."],"afsluiter":"Word installatiepartner van Verduurzaamwijs.","duur":13.5,"staand":"I03-eerlijk-gegund-9x16.mp4","vierkant":"I03-eerlijk-gegund-1x1.mp4"},{"id":"I04","doelgroep":"installateur","invalshoek":"Schouw pas na gunning","hook":"Een offerte maken zonder eerst langs te gaan?","zinnen":["Je offerte baseer je op het dossier van de adviseur.","De schouw plan je pas als de klant voor jou kiest."],"afsluiter":"Word installatiepartner van Verduurzaamwijs.","duur":13.1,"staand":"I04-schouw-pas-na-gunning-9x16.mp4","vierkant":"I04-schouw-pas-na-gunning-1x1.mp4"},{"id":"I05","doelgroep":"installateur","invalshoek":"Minder papierwerk","hook":"Klaar met losse mailtjes en papierwerk?","zinnen":["Van offerte tot factuur en foto's.","Alles staat overzichtelijk in je opdracht op het platform."],"afsluiter":"Word installatiepartner van Verduurzaamwijs.","duur":12.7,"staand":"I05-minder-papierwerk-9x16.mp4","vierkant":"I05-minder-papierwerk-1x1.mp4"}];
+const STER = '<path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/>';
+const $ = (id) => document.getElementById(id);
+const opslag = { get(k) { try { return localStorage.getItem(k); } catch { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+
+// ---------- staat ----------
+const staat = { doelgroep: "alle", formaat: opslag.get("formaat") || "staand", volgorde: "nummer" };
+let alle = {};          // sleutel -> beoordelingsdocument van iedereen
+const OPSLAG_URL = "";
+// Elke beoordelaar krijgt in deze browser een vaste, willekeurige sleutel; zo blijft een beoordeling van jou
+let mijnSleutel = opslag.get("sleutel");
+if (!/^[A-Za-z0-9_-]{6,40}$/.test(mijnSleutel || "")) { mijnSleutel = "b_" + Array.from(crypto.getRandomValues(new Uint8Array(9)), (b) => b.toString(36).padStart(2, "0")).join(""); opslag.set("sleutel", mijnSleutel); }
+let kanSchrijven = Boolean(OPSLAG_URL);
+let mijn = { naam: opslag.get("naam") || "", scores: {}, opmerkingen: {} };
+
+// ---------- weergave ----------
+function sterrenMini(n) { return '<span class="mini" aria-hidden="true">' + [1,2,3,4,5].map((i) => '<svg viewBox="0 0 24 24" class="' + (i <= Math.round(n) ? "aan" : "") + '">' + STER + '</svg>').join("") + '</span>'; }
+function stats(id) {
+  const s = Object.values(alle).map((d) => d.scores?.[id]).filter((x) => Number.isInteger(x) && x >= 1 && x <= 5);
+  return { n: s.length, gem: s.length ? s.reduce((a, b) => a + b, 0) / s.length : 0 };
+}
+const komma = (x) => x.toFixed(1).replace(".", ",");
+
+function kaart(v) {
+  const el = document.createElement("article");
+  el.className = "kaart"; el.id = v.id;
+  el.innerHTML = `
+    <video controls playsinline preload="none"></video>
+    <div class="inhoud">
+      <div class="titel"><h3></h3><span class="code"></span></div>
+      <p class="hook"></p>
+      <div class="meta"><span class="dg"></span><span>${komma(v.duur)} s</span></div>
+      <details><summary>Wat wordt er gezegd?</summary></details>
+      <div class="oordeel">
+        <div class="rij"><span class="sterren" role="radiogroup" aria-label="Jouw sterren voor ${v.id}">${[1,2,3,4,5].map((i) => `<button type="button" role="radio" aria-checked="false" data-s="${i}" aria-label="${i} ${i === 1 ? "ster" : "sterren"}"><svg viewBox="0 0 24 24" aria-hidden="true">${STER}</svg></button>`).join("")}</span>
+          <span class="gem"></span></div>
+        <label class="verborgen" for="o-${v.id}">Opmerking bij ${v.id}</label>
+        <textarea id="o-${v.id}" placeholder="Wat valt je op? Wat zou je anders doen?" maxlength="1500"></textarea>
+        <div class="opslaan"><span class="status" aria-live="polite"></span><button type="button" class="knop">Opmerking opslaan</button></div>
+        <ul class="anderen"></ul>
+      </div>
+    </div>`;
+  el.querySelector("h3").textContent = v.invalshoek;
+  el.querySelector(".code").textContent = v.id;
+  el.querySelector(".hook").textContent = "“" + v.hook + "”";
+  el.querySelector(".dg").textContent = v.doelgroep === "klant" ? "Huiseigenaren" : "Installateurs";
+  const det = el.querySelector("details");
+  for (const zin of [v.hook, ...v.zinnen, v.afsluiter]) { const p = document.createElement("p"); p.textContent = zin; det.append(p); }
+  const video = el.querySelector("video");
+  video.addEventListener("play", () => document.querySelectorAll("video").forEach((o) => o !== video && o.pause()));
+  el.querySelectorAll(".sterren button").forEach((b) => b.addEventListener("click", () => geefSterren(v.id, +b.dataset.s)));
+  const ta = el.querySelector("textarea"), knop = el.querySelector(".knop");
+  ta.value = mijn.opmerkingen[v.id] || "";
+  // Opmerkingen bewaren zichzelf na een korte pauze in het typen en bij het verlaten van het veld; de knop kan ook
+  let pauze;
+  const bewaarAlsGewijzigd = () => { clearTimeout(pauze); if (ta.value.trim() !== (mijn.opmerkingen[v.id] || "")) bewaarOpmerking(v.id, ta.value.trim()); };
+  ta.addEventListener("input", () => {
+    const st = el.querySelector(".status");
+    st.textContent = ta.value.trim() !== (mijn.opmerkingen[v.id] || "") ? "Nog niet opgeslagen" : ""; st.className = "status";
+    clearTimeout(pauze); pauze = setTimeout(bewaarAlsGewijzigd, 1500);
+  });
+  ta.addEventListener("blur", bewaarAlsGewijzigd);
+  knop.addEventListener("click", bewaarAlsGewijzigd);
+  return el;
+}
+
+const kaarten = {};
+function bouw() { const r = $("raster"); for (const v of VIDEOS) { kaarten[v.id] = kaart(v); r.append(kaarten[v.id]); } }
+
+const naamVan = (sleutel, d) => (d.naam && d.naam.trim()) || "Iemand";
+
+function teken() {
+  document.body.classList.toggle("vierkant", staat.formaat === "vierkant");
+  for (const [g, w] of [["f-doelgroep", staat.doelgroep], ["f-formaat", staat.formaat], ["f-volgorde", staat.volgorde]])
+    $(g).querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.w === w)));
+  const lijst = VIDEOS.filter((v) => staat.doelgroep === "alle" || v.doelgroep === staat.doelgroep)
+    .sort((a, b) => staat.volgorde === "score" ? (stats(b.id).gem - stats(a.id).gem) || (stats(b.id).n - stats(a.id).n) : 0);
+  const r = $("raster");
+  for (const v of VIDEOS) kaarten[v.id].hidden = !lijst.includes(v);
+  for (const v of lijst) {
+    const el = kaarten[v.id];
+    r.append(el);
+    const video = el.querySelector("video");
+    const src = "v/" + (staat.formaat === "staand" ? v.staand : v.vierkant);
+    if (video.getAttribute("src") !== src) { video.setAttribute("src", src); video.setAttribute("poster", src.replace(".mp4", "-poster.jpg")); }
+    const mijnS = mijn.scores[v.id] || 0;
+    el.querySelectorAll(".sterren button").forEach((b) => { const aan = +b.dataset.s <= mijnS; b.classList.toggle("aan", aan); b.setAttribute("aria-checked", String(+b.dataset.s === mijnS)); b.disabled = !kanSchrijven; });
+    const st = stats(v.id);
+    el.querySelector(".gem").innerHTML = st.n ? sterrenMini(st.gem) + " " + komma(st.gem) + " <small>(" + st.n + ")</small>" : "<small>Nog geen sterren</small>";
+    el.querySelector("textarea").disabled = !kanSchrijven; el.querySelector(".knop").disabled = !kanSchrijven;
+    const ul = el.querySelector(".anderen"); ul.textContent = "";
+    for (const [sleutel, d] of Object.entries(alle)) {
+      if (sleutel === mijnSleutel) continue;
+      const tekst = typeof d.opmerkingen?.[v.id] === "string" ? d.opmerkingen[v.id] : "", s = d.scores?.[v.id];
+      if (!tekst && !(Number.isInteger(s) && s > 0)) continue;
+      const li = document.createElement("li");
+      const wie = document.createElement("span"); wie.className = "wie";
+      const n = document.createElement("span"); n.textContent = naamVan(sleutel, d); wie.append(n);
+      if (Number.isInteger(s) && s > 0) { const m = document.createElement("span"); m.innerHTML = sterrenMini(s); m.setAttribute("aria-label", s + " sterren"); wie.append(m); }
+      li.append(wie);
+      if (tekst) { const w = document.createElement("span"); w.className = "wat"; w.textContent = tekst; li.append(w); }
+      ul.append(li);
+    }
+  }
+  // stand
+  const rang = VIDEOS.map((v) => ({ v, ...stats(v.id) })).filter((x) => x.n).sort((a, b) => b.gem - a.gem || b.n - a.n);
+  const ol = $("stand"); ol.textContent = "";
+  $("stand-leeg").hidden = rang.length > 0;
+  for (const { v, gem, n } of rang.slice(0, 8)) {
+    const li = document.createElement("li");
+    li.innerHTML = '<span class="code"></span><a></a><span class="gem"></span>';
+    li.querySelector(".code").textContent = v.id;
+    const a = li.querySelector("a"); a.textContent = v.invalshoek; a.href = "#" + v.id;
+    li.querySelector(".gem").innerHTML = sterrenMini(gem) + " " + komma(gem) + " <small>(" + n + ")</small>";
+    ol.append(li);
+  }
+  const klaar = VIDEOS.filter((v) => mijn.scores[v.id]).length;
+  $("voortgang").textContent = "Je hebt " + klaar + " van " + VIDEOS.length + " video's beoordeeld";
+}
+
+// ---------- opslaan (één schrijfactie tegelijk) ----------
+let rij = Promise.resolve();
+/** Bewaart jouw sterren en opmerking bij één video (de naam gaat altijd mee). */
+function schrijf(video) {
+  const body = JSON.stringify({ sleutel: mijnSleutel, naam: mijn.naam, video, sterren: mijn.scores[video] || 0, opmerking: mijn.opmerkingen[video] || "" });
+  rij = rij.then(async () => {
+    const r = await fetch(OPSLAG_URL, { method: "POST", body });
+    const j = await r.json();
+    if (!j.ok) throw new Error(j.fout || "niet opgeslagen");
+  }).catch((e) => { meld("Opslaan lukte niet. Controleer je internetverbinding en probeer het nog eens."); throw e; });
+  return rij;
+}
+function geefSterren(id, s) {
+  if (!kanSchrijven) return;
+  if (!mijn.naam) { $("naam").focus(); meld("Vul eerst je naam in, dan zien de anderen van wie de beoordeling is."); return; }
+  mijn.scores = { ...mijn.scores, [id]: mijn.scores[id] === s ? 0 : s };
+  alle[mijnSleutel] = { ...mijn };
+  teken();
+  schrijf(id).then(haal).catch(() => {});
+}
+function bewaarOpmerking(id, tekst) {
+  if (!kanSchrijven) return;
+  const st = kaarten[id].querySelector(".status");
+  if (!mijn.naam) { st.textContent = "Vul bovenaan je naam in, dan wordt dit bewaard"; st.className = "status"; return; }
+  mijn.opmerkingen = { ...mijn.opmerkingen, [id]: tekst };
+  alle[mijnSleutel] = { ...mijn };
+  st.textContent = "Opslaan…"; st.className = "status";
+  schrijf(id).then(() => { st.textContent = "Opgeslagen"; st.className = "status ok"; haal(); }).catch(() => { st.textContent = "Niet opgeslagen"; });
+}
+function meld(t) { const m = $("melding"); m.textContent = t; m.hidden = false; }
+
+// ---------- bediening ----------
+for (const [g, k] of [["f-doelgroep", "doelgroep"], ["f-formaat", "formaat"], ["f-volgorde", "volgorde"]])
+  $(g).addEventListener("click", (e) => { const b = e.target.closest("button"); if (!b) return; staat[k] = b.dataset.w; if (k === "formaat") opslag.set("formaat", b.dataset.w); teken(); });
+$("naam").value = mijn.naam;
+let naamTimer;
+$("naam").addEventListener("input", () => {
+  mijn.naam = $("naam").value.trim(); opslag.set("naam", mijn.naam);
+  clearTimeout(naamTimer);
+  if (kanSchrijven && mijn.naam) naamTimer = setTimeout(() => {
+    // nieuwe naam: één schrijfactie is genoeg, de opslag zet de naam op al jouw regels
+    const eerste = VIDEOS.find((v) => mijn.scores[v.id] || mijn.opmerkingen[v.id]);
+    if (eerste) schrijf(eerste.id).catch(() => {});
+    for (const v of VIDEOS) { const t = kaarten[v.id].querySelector("textarea").value.trim(); if (t !== (mijn.opmerkingen[v.id] || "")) bewaarOpmerking(v.id, t); }
+  }, 900);
+});
+
+bouw();
+teken();
+
+// ---------- gedeelde opslag: ophalen bij openen en daarna elke 20 seconden ----------
+let eersteKeer = true;
+async function haal() {
+  if (!OPSLAG_URL) return;
+  try {
+    const r = await fetch(OPSLAG_URL, { cache: "no-store" });
+    const { rijen } = await r.json();
+    const nieuw = {};
+    for (const x of rijen || []) {
+      if (typeof x.sleutel !== "string" || typeof x.video !== "string") continue;
+      const d = (nieuw[x.sleutel] ??= { naam: "", scores: {}, opmerkingen: {} });
+      if (typeof x.naam === "string" && x.naam) d.naam = x.naam;
+      if (Number.isInteger(x.sterren) && x.sterren > 0) d.scores[x.video] = x.sterren;
+      if (typeof x.opmerking === "string" && x.opmerking) d.opmerkingen[x.video] = x.opmerking;
+    }
+    // eigen beoordelingen uit de opslag overnemen bij de eerste keer (bijvoorbeeld na herladen)
+    if (eersteKeer && nieuw[mijnSleutel]) {
+      const eigen = nieuw[mijnSleutel];
+      mijn = { naam: mijn.naam || eigen.naam, scores: { ...eigen.scores, ...mijn.scores }, opmerkingen: { ...eigen.opmerkingen, ...mijn.opmerkingen } };
+      if (!$("naam").value) $("naam").value = mijn.naam;
+      for (const v of VIDEOS) { const ta = kaarten[v.id].querySelector("textarea"); if (document.activeElement !== ta && !ta.value) ta.value = mijn.opmerkingen[v.id] || ""; }
+    }
+    eersteKeer = false;
+    nieuw[mijnSleutel] = { ...mijn };
+    alle = nieuw;
+    $("melding").hidden = true;
+    teken();
+  } catch {
+    meld("De beoordelingen konden niet worden geladen. Controleer je internetverbinding; de pagina probeert het zo opnieuw.");
+  }
+}
+if (!OPSLAG_URL) meld("Opslaan is nog niet ingesteld: je kunt de video's bekijken, maar beoordelingen worden nog niet bewaard.");
+haal();
+setInterval(() => { if (!document.hidden) haal(); }, 20000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) haal(); });
+</script>
+</body>
+</html>
