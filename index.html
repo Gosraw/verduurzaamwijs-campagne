@@ -151,7 +151,7 @@ const opslag = { get(k) { try { return localStorage.getItem(k); } catch { return
 // ---------- staat ----------
 const staat = { doelgroep: "alle", formaat: opslag.get("formaat") || "staand", volgorde: "nummer" };
 let alle = {};          // sleutel -> beoordelingsdocument van iedereen
-const OPSLAG_URL = "";
+const OPSLAG_URL = "https://script.google.com/macros/s/AKfycbwmPbgcX3oaqlzwRJ6Ibzonta-F9jTHGBrGdxXReLW2_xJWZ0dW6c7AabURQbW6pukI/exec";
 // Elke beoordelaar krijgt in deze browser een vaste, willekeurige sleutel; zo blijft een beoordeling van jou
 let mijnSleutel = opslag.get("sleutel");
 if (!/^[A-Za-z0-9_-]{6,40}$/.test(mijnSleutel || "")) { mijnSleutel = "b_" + Array.from(crypto.getRandomValues(new Uint8Array(9)), (b) => b.toString(36).padStart(2, "0")).join(""); opslag.set("sleutel", mijnSleutel); }
